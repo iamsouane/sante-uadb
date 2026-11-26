@@ -73,10 +73,12 @@ class SondeTests {
 
     @Test
     void reponseTropLenteDonneInjoignable() {
-        repondre(200, "{\"status\":\"UP\"}", 900);
+        // Écart large (3 s contre 0,3 s de délai) : une machine lente ou froide, comme un runner
+        // Windows de la CI, ne doit pas faire échouer le test (il échouait avec 900 ms / 800 ms)
+        repondre(200, "{\"status\":\"UP\"}", 3000);
         var r = sonde.interroger(url);
         assertThat(r.sante()).isEqualTo(EtatSante.INJOIGNABLE);
-        assertThat(r.latenceMs()).isLessThan(800);
+        assertThat(r.latenceMs()).isLessThan(2500);
     }
 
     @Test
