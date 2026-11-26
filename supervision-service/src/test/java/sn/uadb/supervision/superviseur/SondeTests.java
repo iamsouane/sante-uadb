@@ -19,14 +19,17 @@ class SondeTests {
     private String url;
     private volatile String autorisation;
 
-    private final Sonde sonde = new Sonde(new SupervisionProperties("", Duration.ofSeconds(5), Duration.ofMillis(300),
-            Duration.ofMillis(300), 2, Duration.ofMinutes(3), 10, Map.of()), "supervision", "secret");
+    // Délais larges : sur un runner Windows froid, la première requête d'un client HTTP neuf
+    // dépassait parfois 300 ms, et un test au hasard échouait
+    private final Sonde sonde = new Sonde(new SupervisionProperties("", Duration.ofSeconds(5), Duration.ofSeconds(2),
+            Duration.ofSeconds(1), 2, Duration.ofMinutes(3), 10, Map.of()), "supervision", "secret");
 
     @BeforeEach
     void demarrer() throws IOException {
-        serveur = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
+        // 127.0.0.1 et non localhost : aucune résolution de nom, rien qui varie selon l'OS
+        serveur = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
         serveur.start();
-        url = "http://localhost:" + serveur.getAddress().getPort() + "/actuator/health";
+        url = "http://127.0.0.1:" + serveur.getAddress().getPort() + "/actuator/health";
     }
 
     @AfterEach
@@ -73,8 +76,7 @@ class SondeTests {
 
     @Test
     void reponseTropLenteDonneInjoignable() {
-        // Écart large (3 s contre 0,3 s de délai) : une machine lente ou froide, comme un runner
-        // Windows de la CI, ne doit pas faire échouer le test (il échouait avec 900 ms / 800 ms)
+        // Le serveur met 3 s, la sonde abandonne après 1 s
         repondre(200, "{\"status\":\"UP\"}", 3000);
         var r = sonde.interroger(url);
         assertThat(r.sante()).isEqualTo(EtatSante.INJOIGNABLE);
