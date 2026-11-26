@@ -1,0 +1,185 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://catalogue-service:8081",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/api/produits/{id}/reservations": {
+            "post": {
+                "tags": [
+                    "produit-controller"
+                ],
+                "operationId": "reserver",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Quantite"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Produit"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/produits/{id}/reapprovisionnements": {
+            "post": {
+                "tags": [
+                    "produit-controller"
+                ],
+                "operationId": "reapprovisionner",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Quantite"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Produit"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/produits": {
+            "get": {
+                "tags": [
+                    "produit-controller"
+                ],
+                "operationId": "lister",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Produit"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/produits/{id}": {
+            "get": {
+                "tags": [
+                    "produit-controller"
+                ],
+                "operationId": "lire",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Produit"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Quantite": {
+                "type": "object",
+                "properties": {
+                    "quantite": {
+                        "type": "integer",
+                        "format": "int32",
+                        "maximum": 1000,
+                        "minimum": 1
+                    }
+                }
+            },
+            "Produit": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "nom": {
+                        "type": "string"
+                    },
+                    "prix": {
+                        "type": "number"
+                    },
+                    "stock": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            }
+        }
+    }
+}

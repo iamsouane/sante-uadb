@@ -1,0 +1,7 @@
+{
+  "name": "generation-rapport",
+  "private": true,
+  "type": "module",
+  "scripts": { "pdf": "node generer.mjs" },
+  "dependencies": { "marked": "^18.3.0", "playwright": "^1.65.1" }
+}

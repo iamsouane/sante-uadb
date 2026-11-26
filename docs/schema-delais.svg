@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 190" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <defs><marker id="q" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#333"/></marker>
+  <style>rect{fill:#e8f0fb;stroke:#1c5cab;rx:6} text{text-anchor:middle} .s{font-size:12px;fill:#52514e} path{stroke:#333;marker-end:url(#q)}</style></defs>
+  <rect x="10" y="50" width="130" height="50"/><text x="75" y="72">/health</text><text x="75" y="90">passe à DOWN</text>
+  <rect x="200" y="50" width="130" height="50"/><text x="265" y="72">Le client pousse</text><text x="265" y="90">son statut</text>
+  <rect x="390" y="50" width="130" height="50"/><text x="455" y="72">Cache du</text><text x="455" y="90">serveur Eureka</text>
+  <rect x="580" y="50" width="130" height="50"/><text x="645" y="72">Copie locale</text><text x="645" y="90">de la passerelle</text>
+  <rect x="770" y="50" width="120" height="50"/><text x="830" y="72">Cache du</text><text x="830" y="90">répartiteur</text>
+  <path d="M140 75H198"/><path d="M330 75H388"/><path d="M520 75H578"/><path d="M710 75H768"/>
+  <text class="s" x="265" y="125">usine : 30 s</text><text class="s" x="265" y="145">projet : 5 s</text>
+  <text class="s" x="455" y="125">usine : 30 s</text><text class="s" x="455" y="145">projet : 3 s</text>
+  <text class="s" x="645" y="125">usine : 30 s</text><text class="s" x="645" y="145">projet : 5 s</text>
+  <text class="s" x="830" y="125">usine : 35 s</text><text class="s" x="830" y="145">projet : 5 s</text>
+  <text x="450" y="25" font-weight="bold">Les quatre étages que traverse un statut DOWN avant que le trafic s'arrête</text>
+  <text class="s" x="450" y="178">Pire cas cumulé : 125 s avec les réglages d'usine, 18 s avec ceux du projet</text>
+</svg>

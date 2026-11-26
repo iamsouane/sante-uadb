@@ -1,0 +1,21 @@
+{
+  "profil": "sans-sante",
+  "reglages": {
+    "EUREKA_HEALTHCHECK": "false"
+  },
+  "limite_s": 60,
+  "scenarios": {
+    "base_arretee": {
+      "supervision_s": 4.5,
+      "eureka_s": null,
+      "etat_supervision": "DOWN",
+      "statuts_eureka": [
+        "UP",
+        "UP"
+      ],
+      "divergences": 2,
+      "retour_up_supervision_s": 5.8,
+      "retour_up_eureka_s": 0.1
+    }
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "paquets": 295,
+  "vulnerabilites": [
+    {
+      "paquet": "brotli",
+      "version": "1.2.0-r1",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-111497",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "A buffer overflow vulnerability in the Brotli decoder (c/dec/decode.c) in Google Brotli versions 1.0.3 through 1.2.0 on "
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-107928",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "When curl is built with GnuTLS, a malicious WebSocket server can make curl\nsend memory past its send buffer. This is due"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-107929",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "When `CURLOPT_INTERFACE` (or the command line tool's `--interface` option) is\nset with one of the documented prefixes (`"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86409",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "Setting `CURLOPT_AWS_SIGV4` to NULL but does not disable SigV4 authentication,\ncontrary to expectations and documentatio"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86410",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "A flaw in the curl command line tool's logic makes it only set SSH host\nverification options when interacting directly u"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86411",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "resume": "An `ftp://` transfer configured with `CURLUSESSL_NONE` can reuse a pooled FTP\ncontrol connection that a previous easy ha"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86412",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "A remote HTTP server can set a cookie that curl accepts and writes to a\nNetscape cookie jar but cannot reload. On the ne"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86413",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "resume": "When using an *ambient user* in a first transfer doing Negotiate\nauthentication and asked to follow redirects, curl coul"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86414",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "resume": "An HTTP proxy can trick libcurl into sending the origin's credentials (Basic\npassword, or a Negotiate/Kerberos ticket) t"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86415",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "resume": "libcurl's connection cache match function never considers the automatic client\ncertificate option, so a cached, already "
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-87861",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "resume": "When using ambient user credentials, an HTTP request directed to one origin\nmay be dispatched over a connection previous"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-87862",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "Importing a `includeSubDomains` parent HSTS entry before a longer-lived child\nentry, silently drops the child. Consequen"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-87863",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "An authenticated HTTPS origin can supply an HSTS `max-age` value that the\nparser accepts, but time serialization later f"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-87864",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "Enabling `CURLOPT_CRLF` causes curl to advertise the raw input byte count in\nthe `IMAP APPEND {N}` literal while transmi"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-87865",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "resume": "When libcurl uses libssh2 with a hashed `known_hosts` file, an unrelated\ninitial entry can cause host key validation to "
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-87866",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "resume": "When built with wolfSSL, curl can successfully validate a pinned public key\nhash against a key the TLS peer does not pos"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-92386",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "When writing a long cookie name and value to a Netscape cookie jar, a remote\nHTTP server can make `curl` write a record "
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-92387",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "By permanently omitting the final control-response line, a malicious FTP,\nIMAP, POP3, or SMTP server can exploit libcurl"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-92388",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+      "resume": "When an FTP wildcard `LIST` operation fails, libcurl omits the restoration\npath meant for successful listings, leaving t"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-92389",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "libcurl's TFTP state machine fails to validate state transitions against the\nrequested transfer direction, accepting ope"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-92390",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "resume": "When invoked with `--remote-header-name` (`-J`), curl fails to preserve its\ndocumented anti-clobbering protection if an "
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-92391",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "resume": "A deeply nested multipart MIME structure constructed via the public API causes\na stack overflow in libcurl during normal"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-92392",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "During an upload, curl mishandles HTTP/2 `RST_STREAM` received from the server\n(with reason `HTTP_1_1_REQUIRED` or `REFU"
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-94265",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+      "resume": "When processing an HTTP redirect to a URL containing userinfo (a\n`username:password` component), curl might erroneously "
+    },
+    {
+      "paquet": "curl",
+      "version": "8.22.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-94266",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "resume": "libcurl could accidentally return a URL for `curl_easy_getinfo()`'s\n`CURLINFO_EFFECTIVE_URL` option containing credentia"
+    },
+    {
+      "paquet": "expat",
+      "version": "2.9.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-113351",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "resume": "libexpat 2.7.2 through 2.9.0 contains a denial of service vulnerability because XML_ParserReset zeroes the direct byte c"
+    },
+    {
+      "paquet": "expat",
+      "version": "2.9.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-115506",
+      "gravite": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+      "resume": "libexpat through 2.9.0 contains a denial of service vulnerability because billion laughs protection in accountingDiffTol"
+    },
+    {
+      "paquet": "expat",
+      "version": "2.9.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-117610",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "resume": "libexpat through 2.9.0 contains a NULL pointer dereference vulnerability in externalEntityInitProcessor2() in lib/xmlpar"
+    },
+    {
+      "paquet": "expat",
+      "version": "2.9.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-118370",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+      "resume": "libexpat through 2.9.0 contains a signed integer overflow vulnerability in storeAtts() in lib/xmlparse.c that allows att"
+    },
+    {
+      "paquet": "libxml2",
+      "version": "2.13.9-r2",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-86144",
+      "gravite": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "In xinclude in libxml2 before 2.15.4, xmlXIncludeProcess and xmlXIncludeProcessTree do not propagate parseFlags. This ha"
+    },
+    {
+      "paquet": "libxslt",
+      "version": "1.1.43-r3",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2025-10911",
+      "gravite": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+      "resume": "A use-after-free vulnerability was found in libxslt while parsing xsl nodes that may lead to the dereference of expired "
+    },
+    {
+      "paquet": "libxslt",
+      "version": "1.1.43-r3",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-125350",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "resume": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed a remote attacker to execute arbitrary code inside"
+    },
+    {
+      "paquet": "libxslt",
+      "version": "1.1.43-r3",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-87636",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "resume": "Type confusion in XML in Google Chrome prior to 153.0.8010.36 allowed a remote attacker to potentially execute arbitrary"
+    },
+    {
+      "paquet": "libxslt",
+      "version": "1.1.43-r3",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-9947",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "resume": "Use after free in XML in Google Chrome prior to 148.0.7778.216 allowed a remote attacker to execute arbitrary code insid"
+    },
+    {
+      "paquet": "musl",
+      "version": "1.2.6-r2",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-107891",
+      "gravite": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "resume": "musl libc before 1.2.7, when an untrusted regular expression is used with regcomp, has multiple integer overflows, possi"
+    },
+    {
+      "paquet": "openssl",
+      "version": "3.5.9-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-107496",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "resume": "Issue summary: Encrypting a CMS message to an EC certificate whose group order\nis 1 may cause CMS_encrypt() or CMS_encry"
+    },
+    {
+      "paquet": "openssl",
+      "version": "3.5.9-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-88822",
+      "gravite": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "resume": "Issue summary: QUIC, when performing automated peer detection, may allow\nuninitialized stack data to leak into the recei"
+    },
+    {
+      "paquet": "openssl",
+      "version": "3.5.9-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-88823",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "resume": "Issue summary: The AES-GCM-SIV implementation treats a zero-length Additional\nAuthenticated Data (AAD) update as a reset"
+    },
+    {
+      "paquet": "openssl",
+      "version": "3.5.9-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-95691",
+      "gravite": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+      "resume": "Issue summary: A retransmitted QUIC CRYPTO frame can release packet storage\nwhile the TLS record layer retains a direct "
+    },
+    {
+      "paquet": "openssl",
+      "version": "3.5.9-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-95692",
+      "gravite": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "resume": "Issue summary: Setting an AES-GCM-SIV IV shorter than the expected nonce\nlength via EVP_CipherInit_ex() may trigger a he"
+    },
+    {
+      "paquet": "zlib",
+      "version": "1.3.2-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-4738",
+      "gravite": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:A/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:P/AU:Y/R:U/V:C/RE:L/U:Amber",
+      "resume": "Improper Restriction of Operations within the Bounds of a Memory Buffer vulnerability in OSGeo gdal (frmts/zlib/contrib/"
+    },
+    {
+      "paquet": "zlib",
+      "version": "1.3.2-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-85091",
+      "gravite": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+      "resume": "zlib 1.2.11 through 1.3.2 contains a heap buffer overflow: after an underlying write() fails, gz_write() returns without"
+    },
+    {
+      "paquet": "com.google.guava:guava",
+      "version": "33.0.0-jre",
+      "ecosysteme": "Maven",
+      "id": "GHSA-xxph-c9ww-hj94",
+      "gravite": "HIGH",
+      "resume": "Google Guava: CompactHashMap/CompactHashSet/MapMakerInternalMap deserialization triggers uncontrolled memory allocation"
+    },
+    {
+      "paquet": "org.apache.httpcomponents.client5:httpclient5",
+      "version": "5.5.2",
+      "ecosysteme": "Maven",
+      "id": "GHSA-hjcp-jmpx-g3qm",
+      "gravite": "MODERATE",
+      "resume": "Apache HttpComponents Client: Connection Leak on Content-Encoding Decode Error Leads to Pool Exhaustion DoS"
+    },
+    {
+      "paquet": "org.apache.httpcomponents.core5:httpcore5",
+      "version": "5.3.6",
+      "ecosysteme": "Maven",
+      "id": "GHSA-hf6x-8p5f-cgmf",
+      "gravite": "HIGH",
+      "resume": "Apache HttpComponents Core HTTP/1 header parsing can cause memory-exhaustion denial of service"
+    },
+    {
+      "paquet": "org.apache.httpcomponents.core5:httpcore5-h2",
+      "version": "5.3.6",
+      "ecosysteme": "Maven",
+      "id": "GHSA-v3jc-474w-2wm6",
+      "gravite": "HIGH",
+      "resume": "Apache HttpComponents Core: HPackDecoder Unlimited Header List Size Before SETTINGS ACK"
+    },
+    {
+      "paquet": "org.apache.httpcomponents:httpclient",
+      "version": "4.5.3",
+      "ecosysteme": "Maven",
+      "id": "GHSA-7r82-7xv7-xcpj",
+      "gravite": "MODERATE",
+      "resume": "Cross-site scripting in Apache HttpClient"
+    }
+  ]
+}

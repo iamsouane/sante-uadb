@@ -1,0 +1,32 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: catalogue-service
+  config:
+    import: classpath:supervision-commun.yml
+  datasource:
+    # H2 en mémoire hors Docker ; PostgreSQL via les variables du compose
+    url: ${DB_URL:jdbc:h2:mem:catalogue;MODE=PostgreSQL;DB_CLOSE_DELAY=-1}
+    username: ${DB_USER:sa}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 5
+      # 30 s par défaut. Les indicateurs s'exécutent l'un après l'autre : deux d'entre eux lisent
+      # la base, il faut donc 2 x 1 s < 3 s (délai de la sonde) pour obtenir DOWN et son détail
+      connection-timeout: 1000
+      validation-timeout: 1000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+management:
+  endpoint:
+    health:
+      group:
+        # Prête à recevoir du trafic ? Dépend de la base. Vivante (liveness) ? Non : redémarrer
+        # le conteneur ne réparerait pas PostgreSQL.
+        readiness:
+          include: readinessState,db

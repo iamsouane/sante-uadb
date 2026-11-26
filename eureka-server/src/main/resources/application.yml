@@ -1,0 +1,35 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: eureka
+      password: ${EUREKA_PASSWORD}
+
+eureka:
+  client:
+    # Serveur unique : il ne s'enregistre pas auprès de lui-même
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    # L'auto-préservation gèle les expulsions quand trop de battements manquent (< 85 %).
+    # Avec 6 instances, en perdre une seule la déclenche : désactivée ici, à ACTIVER en production.
+    enable-self-preservation: ${EUREKA_AUTO_PRESERVATION:false}
+    eviction-interval-timer-in-ms: ${EUREKA_EVICTION_MS:5000}
+    response-cache-update-interval-ms: ${EUREKA_CACHE_MS:3000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: when-authorized
+  metrics:
+    tags:
+      application: ${spring.application.name}

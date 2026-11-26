@@ -1,0 +1,33 @@
+groups:
+  - name: sante
+    rules:
+      - alert: ServiceIndisponible
+        expr: supervision_service_instances_disponibles == 0
+        for: 10s
+        labels: { gravite: critique }
+        annotations:
+          resume: "Aucune instance disponible pour {{ $labels.exported_service }}"
+      - alert: InstanceIndisponible
+        expr: supervision_instance_disponible == 0
+        for: 10s
+        labels: { gravite: alerte }
+        annotations:
+          resume: "L'instance {{ $labels.exported_instance_id }} ne rend plus le service"
+      - alert: InstanceInstable
+        expr: sum by (exported_service) (increase(supervision_transitions_total[5m])) > 6
+        labels: { gravite: alerte }
+        annotations:
+          resume: "{{ $labels.exported_service }} change d'état trop souvent"
+      - alert: EurekaIndisponible
+        expr: supervision_eureka_disponible == 0
+        for: 10s
+        labels: { gravite: critique }
+        annotations:
+          resume: "Le registre Eureka ne répond plus"
+      # Qui surveille le superviseur ? Prometheus.
+      - alert: SupervisionAbsente
+        expr: absent(supervision_eureka_disponible)
+        for: 20s
+        labels: { gravite: critique }
+        annotations:
+          resume: "Le service de supervision ne publie plus de métriques"

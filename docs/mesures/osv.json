@@ -1,0 +1,29 @@
+{
+  "paquets": 285,
+  "vulnerabilites": [
+    {
+      "paquet": "expat",
+      "version": "2.10.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-124317",
+      "gravite": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:L/VI:N/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+      "resume": "libexpat through 2.10.0 contains an out-of-bounds read vulnerability in unknown_toUtf8() and unknown_toUtf16() in xmltok"
+    },
+    {
+      "paquet": "expat",
+      "version": "2.10.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-128241",
+      "gravite": "CVSS:4.0/AV:L/AC:H/AT:P/PR:L/UI:P/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+      "resume": "The xmlwf tool in libexpat through 2.10.0 contains a symlink following vulnerability because -d output mode opens files "
+    },
+    {
+      "paquet": "expat",
+      "version": "2.10.0-r0",
+      "ecosysteme": "Alpine:v3.24",
+      "id": "ALPINE-CVE-2026-134703",
+      "gravite": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+      "resume": "libexpat through 2.10.0 contains an improper Unicode handling vulnerability in DEFINE_UTF16_TO_UTF16 conversion function"
+    }
+  ]
+}

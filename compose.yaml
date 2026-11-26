@@ -1,0 +1,166 @@
+name: sante-uadb
+
+x-java: &java
+  restart: unless-stopped
+  networks: [services]
+  mem_limit: 384m
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+
+x-env-client: &env-client
+  EUREKA_PASSWORD: ${EUREKA_PASSWORD:?lancer scripts/init-env.sh}
+  EUREKA_URL: http://eureka:${EUREKA_PASSWORD}@eureka-server:8761/eureka/
+  SUPERVISION_PASSWORD: ${SUPERVISION_PASSWORD:?}
+  ADMIN_PASSWORD: ${ADMIN_PASSWORD:?}
+  # Injection de panne : démonstration uniquement
+  PANNE_ACTIVE: ${PANNE_ACTIVE:-true}
+  # Réglages rapides par défaut ; scripts/mesurer.sh les modifie pour comparer
+  EUREKA_HEALTHCHECK: ${EUREKA_HEALTHCHECK:-true}
+  EUREKA_FETCH_S: ${EUREKA_FETCH_S:-5}
+  EUREKA_REPLICATION_S: ${EUREKA_REPLICATION_S:-5}
+  EUREKA_RENOUVELLEMENT_S: ${EUREKA_RENOUVELLEMENT_S:-5}
+  EUREKA_EXPIRATION_S: ${EUREKA_EXPIRATION_S:-15}
+  LB_CACHE: ${LB_CACHE:-5s}
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    networks: [donnees]
+    mem_limit: 256m
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      CATALOGUE_DB_PASSWORD: ${CATALOGUE_DB_PASSWORD:?}
+      COMMANDE_DB_PASSWORD: ${COMMANDE_DB_PASSWORD:?}
+    volumes:
+      - donnees-postgres:/var/lib/postgresql/data
+      - ./infra/postgres/init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d commande"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  eureka-server:
+    <<: *java
+    build: { context: ., args: { MODULE: eureka-server } }
+    image: sante-uadb/eureka-server
+    ports: ["127.0.0.1:8761:8761"]
+    environment:
+      PORT_SANTE: 8761
+      CHEMIN_SANTE: /actuator/health
+      EUREKA_PASSWORD: ${EUREKA_PASSWORD:?}
+      EUREKA_AUTO_PRESERVATION: ${EUREKA_AUTO_PRESERVATION:-false}
+      EUREKA_EVICTION_MS: ${EUREKA_EVICTION_MS:-5000}
+      EUREKA_CACHE_MS: ${EUREKA_CACHE_MS:-3000}
+
+  catalogue-service:
+    <<: *java
+    build: { context: ., args: { MODULE: catalogue-service } }
+    image: sante-uadb/catalogue-service
+    networks: [services, donnees]
+    # Deux instances : la panne de l'une ne doit pas couper le service
+    deploy: { replicas: 2 }
+    environment:
+      <<: *env-client
+      PORT_SANTE: 8081
+      DB_URL: jdbc:postgresql://postgres:5432/catalogue
+      DB_USER: catalogue
+      DB_PASSWORD: ${CATALOGUE_DB_PASSWORD:?}
+    depends_on:
+      eureka-server: { condition: service_healthy }
+      postgres: { condition: service_healthy }
+
+  commande-service:
+    <<: *java
+    build: { context: ., args: { MODULE: commande-service } }
+    image: sante-uadb/commande-service
+    networks: [services, donnees]
+    environment:
+      <<: *env-client
+      PORT_SANTE: 8082
+      DB_URL: jdbc:postgresql://postgres:5432/commande
+      DB_USER: commande
+      DB_PASSWORD: ${COMMANDE_DB_PASSWORD:?}
+    depends_on:
+      eureka-server: { condition: service_healthy }
+      postgres: { condition: service_healthy }
+
+  api-gateway:
+    <<: *java
+    build: { context: ., args: { MODULE: api-gateway } }
+    image: sante-uadb/api-gateway
+    ports: ["127.0.0.1:8080:8080"]
+    environment:
+      <<: *env-client
+      PORT_SANTE: 8080
+    depends_on:
+      eureka-server: { condition: service_healthy }
+
+  supervision-service:
+    <<: *java
+    build: { context: ., args: { MODULE: supervision-service } }
+    image: sante-uadb/supervision-service
+    ports: ["127.0.0.1:8090:8090"]
+    environment:
+      <<: *env-client
+      PORT_SANTE: 8090
+      EUREKA_SANTE_URL: http://eureka-server:8761/actuator/health
+      SUPERVISION_INTERVALLE: ${SUPERVISION_INTERVALLE:-5s}
+    depends_on:
+      eureka-server: { condition: service_healthy }
+
+  tableau-de-bord:
+    build: ./tableau-de-bord
+    image: sante-uadb/tableau-de-bord
+    restart: unless-stopped
+    networks: [services]
+    ports: ["127.0.0.1:3000:8080"]
+    mem_limit: 64m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+
+  prometheus:
+    image: prom/prometheus:v3.7.3
+    restart: unless-stopped
+    networks: [services]
+    ports: ["127.0.0.1:9090:9090"]
+    mem_limit: 256m
+    volumes:
+      - ./infra/prometheus:/etc/prometheus:ro
+    secrets: [supervision_password, eureka_password]
+    depends_on:
+      eureka-server: { condition: service_healthy }
+
+  grafana:
+    image: grafana/grafana:12.3.0
+    restart: unless-stopped
+    networks: [services]
+    ports: ["127.0.0.1:3001:3000"]
+    mem_limit: 256m
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:?}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+    volumes:
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on: [prometheus]
+
+secrets:
+  supervision_password:
+    environment: SUPERVISION_PASSWORD
+  eureka_password:
+    environment: EUREKA_PASSWORD
+
+networks:
+  services:
+  donnees:
+    # Aucune sortie vers l'extérieur pour la base
+    internal: true
+
+volumes:
+  donnees-postgres:

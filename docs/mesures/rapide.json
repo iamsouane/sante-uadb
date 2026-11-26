@@ -1,0 +1,52 @@
+{
+  "profil": "rapide",
+  "reglages": {},
+  "limite_s": 60,
+  "scenarios": {
+    "down_injecte": {
+      "supervision_s": 2.3,
+      "eureka_s": 4.6,
+      "requetes": 118,
+      "erreurs": 0,
+      "erreurs_jusqu_a_la_fin": false,
+      "observation_s": 14.8,
+      "derniere_erreur_s": null,
+      "derniere_reponse_de_la_victime_s": 8.0,
+      "retour_up_eureka_s": 4.5
+    },
+    "arret_propre": {
+      "supervision_s": 6.7,
+      "eureka_s": 2.5,
+      "requetes": 131,
+      "erreurs": 8,
+      "erreurs_jusqu_a_la_fin": false,
+      "observation_s": 21.9,
+      "derniere_erreur_s": 7.0,
+      "derniere_reponse_de_la_victime_s": null,
+      "retour_up_eureka_s": 10.0
+    },
+    "kill_9": {
+      "supervision_s": 10.0,
+      "eureka_s": 31.9,
+      "requetes": 207,
+      "erreurs": 58,
+      "erreurs_jusqu_a_la_fin": false,
+      "observation_s": 47.1,
+      "derniere_erreur_s": 36.0,
+      "derniere_reponse_de_la_victime_s": null,
+      "retour_up_eureka_s": 8.6
+    },
+    "base_arretee": {
+      "supervision_s": 6.6,
+      "eureka_s": 7.7,
+      "etat_supervision": "DOWN",
+      "statuts_eureka": [
+        "DOWN",
+        "DOWN"
+      ],
+      "divergences": 2,
+      "retour_up_supervision_s": 10.1,
+      "retour_up_eureka_s": 13.9
+    }
+  }
+}

@@ -1,0 +1,74 @@
+# Configuration partagée par tous les services (importée via spring.config.import).
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # Liste blanche : on n'expose jamais "*" (env, heapdump, beans... divulguent des secrets)
+        include: health,info,metrics,prometheus,panne
+  endpoint:
+    health:
+      # Anonyme : {"status":"UP"} seulement. Rôle SUPERVISION : détail de chaque composant.
+      show-details: when-authorized
+      show-components: when-authorized
+      roles: SUPERVISION
+      probes:
+        enabled: true
+      status:
+        # Du plus grave au moins grave. DEGRADE est un statut propre au projet.
+        order: DOWN,OUT_OF_SERVICE,DEGRADE,UP,UNKNOWN
+        # Redéfinir cette table remplace les valeurs par défaut : il faut tout lister.
+        http-mapping:
+          DOWN: 503
+          OUT_OF_SERVICE: 503
+          DEGRADE: 200
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://eureka:${EUREKA_PASSWORD}@localhost:8761/eureka/}
+    healthcheck:
+      # Sans cette ligne, Eureka affiche UP dès que le processus envoie ses battements,
+      # même si /actuator/health répond DOWN.
+      enabled: ${EUREKA_HEALTHCHECK:true}
+    registry-fetch-interval-seconds: ${EUREKA_FETCH_S:5}
+    initial-instance-info-replication-interval-seconds: ${EUREKA_REPLICATION_S:5}
+    instance-info-replication-interval-seconds: ${EUREKA_REPLICATION_S:5}
+  instance:
+    instance-id: ${spring.application.name}:${HOSTNAME:local}:${server.port}
+    # Nom plutôt qu'IP : un conteneur présent sur deux réseaux Docker annoncerait parfois l'IP
+    # du réseau de la base, injoignable pour les autres services. Le nom est résolu par le DNS
+    # Docker sur le réseau commun.
+    prefer-ip-address: false
+    hostname: ${HOSTNAME:localhost}
+    lease-renewal-interval-in-seconds: ${EUREKA_RENOUVELLEMENT_S:5}
+    lease-expiration-duration-in-seconds: ${EUREKA_EXPIRATION_S:15}
+
+spring:
+  cloud:
+    discovery:
+      client:
+        composite-indicator:
+          # Cet indicateur relit dans Eureka le statut du service lui-même, statut qui dépend de
+          # /health : une boucle, qui retarde le retour à UP. La supervision sonde Eureka à part.
+          enabled: false
+    loadbalancer:
+      cache:
+        # 35 s par défaut : un client continuerait d'appeler une instance DOWN
+        ttl: ${LB_CACHE:5s}
+
+supervision:
+  securite:
+    utilisateur: supervision
+    mot-de-passe: ${SUPERVISION_PASSWORD}
+    admin: admin
+    mot-de-passe-admin: ${ADMIN_PASSWORD}
+  panne:
+    # L'injection de panne est un outil de démonstration : désactivée par défaut.
+    active: ${PANNE_ACTIVE:false}
+
+server:
+  shutdown: graceful

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#0b0b0b">
+<rect x="10" y="8" width="12" height="12" rx="2" fill="#2a78d6"/><text x="28" y="19">Réglages du projet</text><rect x="180" y="8" width="12" height="12" rx="2" fill="#eb6834"/><text x="198" y="19">Réglages d'usine</text>
+<text x="10" y="50" fill="#52514e">DOWN injecté : dernière requête servie par l'instance</text>
+<path d="M10 58h6.7q4 0 4 4v12q0 4 -4 4h-6.7z" fill="#2a78d6"/><text x="30.7" y="73">8,0 s</text>
+<path d="M10 82h72.8q4 0 4 4v12q0 4 -4 4h-72.8z" fill="#eb6834"/><text x="96.8" y="97">57,6 s</text>
+<text x="10" y="136" fill="#52514e">Arrêt propre : dernière erreur client</text>
+<path d="M10 144h5.3q4 0 4 4v12q0 4 -4 4h-5.3z" fill="#2a78d6"/><text x="29.3" y="159">7,0 s</text>
+<path d="M10 168h72.9q4 0 4 4v12q0 4 -4 4h-72.9z" fill="#eb6834"/><text x="96.9" y="183">57,7 s</text>
+<text x="10" y="222" fill="#52514e">kill -9 : dernière erreur client</text>
+<path d="M10 230h44.0q4 0 4 4v12q0 4 -4 4h-44.0z" fill="#2a78d6"/><text x="68.0" y="245">36,0 s</text>
+<path d="M10 254h545.9q4 0 4 4v12q0 4 -4 4h-545.9z" fill="#eb6834"/><text x="569.9" y="269">412,4 s (toujours en erreur à la fin de l&#39;essai)</text>
+</svg>

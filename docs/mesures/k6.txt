@@ -1,0 +1,70 @@
+
+
+  █ THRESHOLDS 
+
+    dropped_iterations
+    ✓ 'count<100' count=0
+
+    http_req_duration{scenario:metier}
+    ✓ 'p(95)<500' p(95)=6.79ms
+
+    http_req_duration{scenario:preparation}
+    ✓ 'p(95)<300' p(95)=5.5ms
+
+    http_req_duration{scenario:sante}
+    ✓ 'p(95)<300' p(95)=4.76ms
+
+    http_req_duration{scenario:vivacite}
+    ✓ 'p(95)<200' p(95)=4.26ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+    http_reqs{scenario:metier}
+    ✓ 'count>0' count=3001
+
+    http_reqs{scenario:preparation}
+    ✓ 'count>0' count=3004
+
+    http_reqs{scenario:sante}
+    ✓ 'count>0' count=3001
+
+    http_reqs{scenario:vivacite}
+    ✓ 'count>0' count=3001
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 94063   553.256803/s
+    checks_succeeded...: 100.00% 94063 out of 94063
+    checks_failed......: 0.00%   0 out of 94063
+
+    ✓ statut 200
+
+    HTTP
+    http_req_duration..............: avg=1.87ms med=1.27ms p(95)=4.45ms  p(99)=10.26ms max=445.83ms
+      { expected_response:true }...: avg=1.87ms med=1.27ms p(95)=4.45ms  p(99)=10.26ms max=445.83ms
+      { scenario:metier }..........: avg=3.58ms med=2.86ms p(95)=6.79ms  p(99)=21.54ms max=82.43ms 
+      { scenario:preparation }.....: avg=2.66ms med=1.75ms p(95)=5.5ms   p(99)=20.05ms max=162.58ms
+      { scenario:sante }...........: avg=2.5ms  med=2.11ms p(95)=4.76ms  p(99)=12.17ms max=47.56ms 
+      { scenario:vivacite }........: avg=2ms    med=1.66ms p(95)=4.26ms  p(99)=9.94ms  max=48.13ms 
+    http_req_failed................: 0.00%  0 out of 94063
+    http_reqs......................: 94063  553.256803/s
+      { scenario:metier }..........: 3001   17.651188/s
+      { scenario:preparation }.....: 3004   17.668833/s
+      { scenario:sante }...........: 3001   17.651188/s
+      { scenario:vivacite }........: 3001   17.651188/s
+
+    EXECUTION
+    dropped_iterations.............: 0      0/s
+    iteration_duration.............: avg=5.67ms med=4.56ms p(95)=13.22ms p(99)=27.42ms max=528.51ms
+    iterations.....................: 32521  191.280998/s
+    vus............................: 0      min=0          max=5  
+    vus_max........................: 100    min=100        max=100
+
+    NETWORK
+    data_received..................: 41 MB  242 kB/s
+    data_sent......................: 9.0 MB 53 kB/s
+
+
+

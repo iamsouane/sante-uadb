@@ -1,0 +1,5 @@
+# Indispensable pour le poste Windows : un script en CRLF ne démarre pas dans un conteneur Linux
+* text=auto
+*.sh text eol=lf
+mvnw text eol=lf
+*.cmd text eol=crlf

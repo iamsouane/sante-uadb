@@ -1,0 +1,61 @@
+{
+  "profil": "defaut",
+  "reglages": {
+    "EUREKA_FETCH_S": "30",
+    "EUREKA_REPLICATION_S": "30",
+    "EUREKA_RENOUVELLEMENT_S": "30",
+    "EUREKA_EXPIRATION_S": "90",
+    "LB_CACHE": "35s",
+    "EUREKA_EVICTION_MS": "60000",
+    "EUREKA_CACHE_MS": "30000",
+    "EUREKA_AUTO_PRESERVATION": "true"
+  },
+  "limite_s": 330,
+  "scenarios": {
+    "down_injecte": {
+      "supervision_s": 2.9,
+      "eureka_s": 28.6,
+      "requetes": 699,
+      "erreurs": 0,
+      "erreurs_jusqu_a_la_fin": false,
+      "observation_s": 83.8,
+      "derniere_erreur_s": null,
+      "derniere_reponse_de_la_victime_s": 57.6,
+      "retour_up_eureka_s": 34.5
+    },
+    "arret_propre": {
+      "supervision_s": 9.9,
+      "eureka_s": 17.3,
+      "requetes": 845,
+      "erreurs": 148,
+      "erreurs_jusqu_a_la_fin": false,
+      "observation_s": 100.0,
+      "derniere_erreur_s": 57.7,
+      "derniere_reponse_de_la_victime_s": null,
+      "retour_up_eureka_s": 6.7
+    },
+    "kill_9": {
+      "supervision_s": 9.1,
+      "eureka_s": null,
+      "requetes": 3598,
+      "erreurs": 1765,
+      "erreurs_jusqu_a_la_fin": true,
+      "observation_s": 412.5,
+      "derniere_erreur_s": 412.4,
+      "derniere_reponse_de_la_victime_s": null,
+      "retour_up_eureka_s": 0.1
+    },
+    "base_arretee": {
+      "supervision_s": 7.5,
+      "eureka_s": 33.9,
+      "etat_supervision": "DOWN",
+      "statuts_eureka": [
+        "DOWN",
+        "DOWN"
+      ],
+      "divergences": 2,
+      "retour_up_supervision_s": 6.0,
+      "retour_up_eureka_s": 29.1
+    }
+  }
+}

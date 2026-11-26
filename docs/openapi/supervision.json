@@ -1,0 +1,389 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "API de supervision",
+        "description": "Binôme 3 - Supervision et endpoint /health",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8090",
+            "description": "Generated server url"
+        }
+    ],
+    "security": [
+        {
+            "basic": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "Supervision",
+            "description": "États UP/DOWN des services, croisés entre Eureka et Actuator"
+        }
+    ],
+    "paths": {
+        "/api/supervision/instances/{id}/panne": {
+            "put": {
+                "tags": [
+                    "Supervision"
+                ],
+                "summary": "Injecte une panne sur une instance (rôle ADMIN, démonstration)",
+                "operationId": "injecter",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DemandePanne"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Supervision"
+                ],
+                "summary": "Rétablit une instance (rôle ADMIN, démonstration)",
+                "operationId": "retablir",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/api/supervision/services/{nom}": {
+            "get": {
+                "tags": [
+                    "Supervision"
+                ],
+                "summary": "État d'un service",
+                "operationId": "service",
+                "parameters": [
+                    {
+                        "name": "nom",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Service"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/supervision/evenements": {
+            "get": {
+                "tags": [
+                    "Supervision"
+                ],
+                "summary": "Historique des changements d'état, du plus récent au plus ancien",
+                "operationId": "evenements",
+                "parameters": [
+                    {
+                        "name": "service",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limite",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 50,
+                            "maximum": 500,
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Evenement"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/supervision/etat": {
+            "get": {
+                "tags": [
+                    "Supervision"
+                ],
+                "summary": "État global, par service et par instance",
+                "operationId": "etat",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Etat"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "DemandePanne": {
+                "type": "object",
+                "properties": {
+                    "statut": {
+                        "type": "string",
+                        "enum": [
+                            "UP",
+                            "DEGRADE",
+                            "OUT_OF_SERVICE",
+                            "DOWN"
+                        ]
+                    },
+                    "raison": {
+                        "type": "string",
+                        "maxLength": 120,
+                        "minLength": 0
+                    },
+                    "latenceMs": {
+                        "type": "integer",
+                        "format": "int32",
+                        "maximum": 10000,
+                        "minimum": 0
+                    }
+                },
+                "required": [
+                    "statut"
+                ]
+            },
+            "Instance": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "service": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "statutEureka": {
+                        "type": "string"
+                    },
+                    "sante": {
+                        "type": "string",
+                        "enum": [
+                            "UP",
+                            "DEGRADE",
+                            "INCONNU",
+                            "OUT_OF_SERVICE",
+                            "DOWN",
+                            "INJOIGNABLE"
+                        ]
+                    },
+                    "divergence": {
+                        "type": "boolean"
+                    },
+                    "latenceMs": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "composants": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "detail": {
+                        "type": "string"
+                    },
+                    "depuis": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "verifieeLe": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Service": {
+                "type": "object",
+                "properties": {
+                    "nom": {
+                        "type": "string"
+                    },
+                    "etat": {
+                        "type": "string",
+                        "enum": [
+                            "UP",
+                            "DEGRADE",
+                            "INCONNU",
+                            "OUT_OF_SERVICE",
+                            "DOWN",
+                            "INJOIGNABLE"
+                        ]
+                    },
+                    "instancesDisponibles": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "instancesTotal": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minimum": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "disponibilite": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "instances": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Instance"
+                        }
+                    }
+                }
+            },
+            "Evenement": {
+                "type": "object",
+                "properties": {
+                    "horodatage": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "service": {
+                        "type": "string"
+                    },
+                    "instance": {
+                        "type": "string"
+                    },
+                    "de": {
+                        "type": "string",
+                        "enum": [
+                            "UP",
+                            "DEGRADE",
+                            "INCONNU",
+                            "OUT_OF_SERVICE",
+                            "DOWN",
+                            "INJOIGNABLE"
+                        ]
+                    },
+                    "vers": {
+                        "type": "string",
+                        "enum": [
+                            "UP",
+                            "DEGRADE",
+                            "INCONNU",
+                            "OUT_OF_SERVICE",
+                            "DOWN",
+                            "INJOIGNABLE"
+                        ]
+                    },
+                    "detail": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Etat": {
+                "type": "object",
+                "properties": {
+                    "global": {
+                        "type": "string",
+                        "enum": [
+                            "UP",
+                            "DEGRADE",
+                            "INCONNU",
+                            "OUT_OF_SERVICE",
+                            "DOWN",
+                            "INJOIGNABLE"
+                        ]
+                    },
+                    "horodatage": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "eureka": {
+                        "type": "string",
+                        "enum": [
+                            "UP",
+                            "DEGRADE",
+                            "INCONNU",
+                            "OUT_OF_SERVICE",
+                            "DOWN",
+                            "INJOIGNABLE"
+                        ]
+                    },
+                    "services": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Service"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "basic": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        }
+    }
+}

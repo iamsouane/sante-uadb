@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: classpath:supervision-commun.yml
+  http:
+    clients:
+      # Sans délai, une instance disparue (IP sans réponse) bloque la requête plus d'une minute
+      connect-timeout: 1s
+      read-timeout: 5s
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          # Seules les API métier sont routées : aucun /actuator ne traverse la passerelle.
+          routes:
+            - id: catalogue
+              uri: lb://catalogue-service
+              predicates:
+                - Path=/api/produits/**
+            - id: commandes
+              uri: lb://commande-service
+              predicates:
+                - Path=/api/commandes/**
+
+supervision:
+  # L'en-tête X-Instance utile est celui du service appelé, pas celui de la passerelle
+  entete-instance: false

@@ -1,0 +1,31 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: supervision-service
+  config:
+    import: classpath:supervision-commun.yml
+
+eureka:
+  client:
+    # Par défaut le client ne garde que les instances UP : un superviseur doit voir aussi les DOWN
+    filter-only-up-instances: false
+
+supervision:
+  eureka-sante-url: ${EUREKA_SANTE_URL:http://localhost:8761/actuator/health}
+  intervalle: ${SUPERVISION_INTERVALLE:5s}
+  delai-connexion: 1s
+  delai-reponse: 3s
+  # Nombre d'échecs consécutifs avant INJOIGNABLE : évite les fausses alertes sur un paquet perdu
+  seuil-echecs: 2
+  # Une instance absente d'Eureka reste affichée ce temps-là, puis est retirée
+  conservation: 3m
+  historique: 500
+  # Services attendus et nombre minimal d'instances saines : permet de signaler un service
+  # qui n'a jamais démarré, invisible dans Eureka
+  services-attendus:
+    api-gateway: 1
+    catalogue-service: ${CATALOGUE_MIN:2}
+    commande-service: 1
+    supervision-service: 1
