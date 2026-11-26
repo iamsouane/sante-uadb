@@ -104,6 +104,7 @@ docker run --rm --network sante-uadb_services -v "$PWD/charge:/charge:ro" grafan
 ## Documentation
 
 - [Rapport technique (PDF)](docs/rapport.pdf), source dans [docs/rapport.md](docs/rapport.md)
+- [Présentation de soutenance (PPTX)](docs/presentation.pptx), générée par `docs/generation/presentation.cjs`
 - [Déroulé de la démonstration](docs/demonstration.md)
 - [Backlog et User Stories](docs/backlog.md)
 - [Rapport de sécurité](docs/securite.md)
