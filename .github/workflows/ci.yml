@@ -18,15 +18,19 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
           cache: maven
       - run: ./mvnw -B verify
         shell: bash
-      - uses: actions/upload-artifact@v4
+      - name: Tests en échec (annotations)
+        if: failure()
+        shell: bash
+        run: python3 scripts/annoter_tests.py || python scripts/annoter_tests.py
+      - uses: actions/upload-artifact@v6
         if: matrix.os == 'ubuntu-latest'
         with:
           name: couverture-jacoco
@@ -39,8 +43,8 @@ jobs:
       run:
         working-directory: tableau-de-bord
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
@@ -55,7 +59,7 @@ jobs:
     needs: [java, front]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: scripts/init-env.sh > /dev/null
       - run: docker compose config -q
       - run: docker compose build
