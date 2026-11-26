@@ -62,7 +62,17 @@ jobs:
       - uses: actions/checkout@v6
       - run: scripts/init-env.sh > /dev/null
       - run: docker compose config -q
-      - run: docker compose build
+      - name: Construction des images
+        shell: bash
+        # Maven Central et Docker Hub limitent parfois les runners GitHub : on réessaie, et la fin
+        # du journal remonte en annotation si les trois tentatives échouent
+        run: |
+          for essai in 1 2 3; do
+            docker compose build > build.log 2>&1 && exit 0
+            echo "Tentative $essai échouée"; sleep 30
+          done
+          echo "::error title=docker compose build::$(tail -25 build.log | awk '{gsub(/%/,"%25"); printf "%s%%0A", $0}')"
+          exit 1
       - run: docker compose up -d --wait --wait-timeout 240
       - name: Essai de bout en bout (UP, panne, rétablissement)
         run: python3 scripts/verifier.py
