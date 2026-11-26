@@ -458,11 +458,19 @@ Le fichier `.github/workflows/ci.yml` définit trois travaux :
 
 L'action Trivy est épinglée par empreinte de commit plutôt que par étiquette, car une étiquette peut être déplacée vers du code malveillant.
 
-La pipeline est écrite mais **n'a pas encore été exécutée sur GitHub** au moment de la rédaction. Les commandes Java, npm, Docker et `verifier.py` qu'elle enchaîne ont été exécutées en local sous macOS.
+La pipeline tourne sur GitHub à chaque push et passe sur les trois systèmes. Ses premières exécutions ont révélé trois problèmes, tous corrigés :
+
+| Problème | Cause | Correction |
+|---|---|---|
+| Action Trivy introuvable | Étiquette `0.33.1` inexistante (le nom correct est `v0.33.1`) | Action épinglée par empreinte de commit |
+| Un test échouait au hasard sous Windows | Délai de 300 ms trop court pour la première requête d'un client HTTP neuf sur un runner froid | Délais de test de 2 s et 1 s, `127.0.0.1` au lieu de `localhost` |
+| Construction des images en échec une fois | Indisponibilité passagère d'un dépôt distant | Trois tentatives, fin du journal en annotation |
+
+Pour le test instable, un premier correctif visait le mauvais test. Nous avons alors ajouté à la CI une étape qui publie chaque test en échec sous forme d'annotation : le test réellement fautif est apparu dès l'exécution suivante. Corriger sans preuve nous avait fait perdre un cycle.
 
 ### 9.3 Portabilité
 
-Les scripts de démonstration sont en Python sans dépendance ; `.gitattributes` force les fins de ligne Unix, car un script en CRLF ne démarre pas dans un conteneur Linux. Le projet a été essayé sous macOS ; l'essai sous Windows reste à faire.
+Les scripts de démonstration sont en Python sans dépendance ; `.gitattributes` force les fins de ligne Unix, car un script en CRLF ne démarre pas dans un conteneur Linux. Les tests Java passent sous Windows dans la CI. Le démarrage complet de la pile sous Windows (Docker Desktop) reste à essayer sur le poste de Moussa.
 
 ## 10. Organisation
 
